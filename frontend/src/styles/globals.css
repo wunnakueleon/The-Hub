@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+/* ─── Design tokens ───────────────────────────────────────────────────────── */
+@theme {
+  /* Colors */
+  --color-jade-900: #0c2340;
+  --color-jade-800: #112d4e;
+  --color-jade-700: #1b4f82;
+  --color-jade-600: #2766a8;
+  --color-jade-500: #3a80c4;
+  --color-jade-300: #8bb8db;
+  --color-jade-100: #dae8f5;
+
+  --color-gold-600: #c4892f;
+  --color-gold-500: #d9a441;
+  --color-gold-400: #e8b860;
+  --color-gold-200: #f2dca6;
+
+  --color-coral-600: #c4583a;
+  --color-coral-500: #d96f4a;
+  --color-coral-400: #e89178;
+  --color-coral-200: #f4cfc1;
+
+  --color-sand-50:  #fdfaf2;
+  --color-sand-100: #f9f2e2;
+  --color-sand-200: #f2e9d6;
+  --color-sand-300: #e8dcc2;
+  --color-sand-400: #d8c6a3;
+
+  --color-ink-900: #16201c;
+  --color-ink-700: #2a3a34;
+  --color-ink-500: #586860;
+  --color-ink-400: #7c8a82;
+
+  /* Typography */
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans:    "DM Sans", system-ui, -apple-system, sans-serif;
+
+  /* Border radius */
+  --radius-sm:   8px;
+  --radius-md:   14px;
+  --radius-lg:   22px;
+  --radius-xl:   32px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(22,32,28,.06), 0 1px 3px rgba(22,32,28,.05);
+  --shadow-md: 0 4px 14px rgba(22,32,28,.08), 0 2px 6px rgba(22,32,28,.05);
+  --shadow-lg: 0 18px 48px rgba(12,35,64,.16), 0 6px 16px rgba(12,35,64,.08);
+  --shadow-xl: 0 32px 80px rgba(12,35,64,.22);
+
+  /* Max width */
+  --width-site: 1180px;
+}
+
+/* ─── Base ────────────────────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    color: var(--color-ink-900);
+    background-color: var(--color-sand-50);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Prevent font size inflation on mobile */
+    text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--color-jade-900);
+  }
+
+  img, video {
+    max-width: 100%;
+    display: block;
+  }
+
+  /* Remove default button styles so UI primitives start clean */
+  button {
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+/* ─── Utilities ───────────────────────────────────────────────────────────── */
+@layer utilities {
+  .site-container {
+    width: 100%;
+    max-width: var(--width-site);
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  /* Scroll-reveal animation (used by useReveal hook) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
