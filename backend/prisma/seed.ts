@@ -85,7 +85,37 @@ async function main() {
     },
   });
 
-  console.log(`Created ${5} users`);
+  await prisma.user.upsert({
+    where: { email: "wunna@thehub.dev" },
+    update: {},
+    create: {
+      name: "Wunna Moe San",
+      email: "wunna@thehub.dev",
+      password: devPassword,
+      role: "developer",
+      github: "wunnamoesan",
+      bio: "Full-stack builder who ships fast and refactors on the beach.",
+      skills: JSON.stringify(["TypeScript", "React", "Node"]),
+      hue: 200,
+    },
+  });
+
+  await prisma.user.upsert({
+    where: { email: "nils@thehub.dev" },
+    update: {},
+    create: {
+      name: "Nils Magnus",
+      email: "nils@thehub.dev",
+      password: devPassword,
+      role: "developer",
+      github: "nilsmagnus",
+      bio: "Systems engineer, fan of strong types and slow mornings.",
+      skills: JSON.stringify(["Rust", "Go", "gRPC"]),
+      hue: 340,
+    },
+  });
+
+  console.log(`Created ${7} users`);
 
   // ─── Event 1: Koh Yao Noi (published, popular) ────────────────────────────
   const event1 = await prisma.event.upsert({
@@ -428,6 +458,8 @@ async function main() {
   console.log("  sam@thehub.dev    / dev1234    (developer)");
   console.log("  priya@thehub.dev  / dev1234    (developer)");
   console.log("  leon@thehub.dev   / dev1234    (developer)");
+  console.log("  wunna@thehub.dev  / dev1234    (developer)");
+  console.log("  nils@thehub.dev   / dev1234    (developer)");
 }
 
 main()
