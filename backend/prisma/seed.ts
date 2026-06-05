@@ -10,21 +10,6 @@ async function main() {
   const adminPassword = await bcrypt.hash("admin1234", 12);
   const devPassword = await bcrypt.hash("dev1234", 12);
 
-  await prisma.user.upsert({
-    where: { email: "admin@thehub.dev" },
-    update: {},
-    create: {
-      name: "Alex Rivera",
-      email: "admin@thehub.dev",
-      password: adminPassword,
-      role: "admin",
-      github: "alexrivera",
-      bio: "Organiser of The Hub retreats. Building communities one island at a time.",
-      skills: JSON.stringify(["community", "logistics", "typescript"]),
-      hue: 220,
-    },
-  });
-
   const u1 = await prisma.user.upsert({
     where: { email: "maya@thehub.dev" },
     update: {},
@@ -106,8 +91,8 @@ async function main() {
     create: {
       name: "Nils Magnus",
       email: "nils@thehub.dev",
-      password: devPassword,
-      role: "developer",
+      password: adminPassword,
+      role: "admin",
       github: "nilsmagnus",
       bio: "Systems engineer, fan of strong types and slow mornings.",
       skills: JSON.stringify(["Rust", "Go", "gRPC"]),
@@ -115,7 +100,7 @@ async function main() {
     },
   });
 
-  console.log(`Created ${7} users`);
+  console.log(`Created ${6} users`);
 
   // ─── Event 1: Koh Yao Noi (published, popular) ────────────────────────────
   const event1 = await prisma.event.upsert({
@@ -453,13 +438,12 @@ async function main() {
   console.log("Created 4 bookings");
   console.log("\nSeed complete.");
   console.log("\nTest accounts:");
-  console.log("  admin@thehub.dev  / admin1234  (admin)");
+  console.log("  nils@thehub.dev   / admin1234  (admin)");
   console.log("  maya@thehub.dev   / dev1234    (developer)");
   console.log("  sam@thehub.dev    / dev1234    (developer)");
   console.log("  priya@thehub.dev  / dev1234    (developer)");
   console.log("  leon@thehub.dev   / dev1234    (developer)");
   console.log("  wunna@thehub.dev  / dev1234    (developer)");
-  console.log("  nils@thehub.dev   / dev1234    (developer)");
 }
 
 main()
