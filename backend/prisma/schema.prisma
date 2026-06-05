@@ -1,0 +1,116 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  runtime      = "nodejs"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("developer") // "developer" | "admin"
+  github    String?
+  bio       String?
+  skills    String? // JSON array stored as string for SQLite
+  hue       Int      @default(168)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  bookings Booking[]
+}
+
+model Event {
+  id        String   @id @default(cuid())
+  name      String
+  island    String // "Koh Yao Noi, Phang Nga Bay"
+  villa     String // "Baan Lamai Villa"
+  startDate DateTime
+  endDate   DateTime
+  season    String // "Spring 2026"
+  tagline   String
+  desc      String
+  capacity  Int      @default(20)
+  published Boolean  @default(false)
+  heroTag   String? // "Most popular", "Sold out", null
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  rooms     Room[]
+  bookings  Booking[]
+  amenities EventAmenity[]
+  included  EventIncluded[]
+  schedule  EventSchedule[]
+  faq       EventFAQ[]
+}
+
+model Room {
+  id      String @id @default(cuid())
+  eventId String
+  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  type    String // "shared" | "private" | "suite"
+  name    String // "Shared Twin"
+  desc    String
+  price   Int // in THB
+  sleeps  Int
+  beds    Int // available beds of this type
+
+  bookings Booking[]
+}
+
+model Booking {
+  id        String   @id @default(cuid())
+  ref       String   @unique // "HUB-KY7-2A9F"
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  eventId   String
+  event     Event    @relation(fields: [eventId], references: [id])
+  roomId    String
+  room      Room     @relation(fields: [roomId], references: [id])
+  status    String   @default("pending") // pending | confirmed | waitlisted | cancelled
+  guests    Int      @default(1)
+  diet      String   @default("None")
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model EventAmenity {
+  id      String @id @default(cuid())
+  eventId String
+  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  icon    String // "wifi", "pool", "ac", etc.
+  label   String // "1 Gbps fibre"
+}
+
+model EventIncluded {
+  id      String @id @default(cuid())
+  eventId String
+  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  text    String
+  order   Int    @default(0)
+}
+
+model EventSchedule {
+  id      String @id @default(cuid())
+  eventId String
+  event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  time    String // "07:30"
+  title   String // "Sunrise swim & coffee"
+  note    String // "Optional. The pool is best at dawn."
+  order   Int    @default(0)
+}
+
+model EventFAQ {
+  id       String @id @default(cuid())
+  eventId  String
+  event    Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  question String
+  answer   String
+  order    Int    @default(0)
+}
