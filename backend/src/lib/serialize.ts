@@ -12,7 +12,7 @@ export interface PublicUser {
   hue: number;
 }
 
-function parseSkills(raw: string | null): string[] {
+export function parseSkills(raw: string | null): string[] {
   if (!raw) return [];
   try {
     const parsed = JSON.parse(raw);
@@ -20,6 +20,22 @@ function parseSkills(raw: string | null): string[] {
   } catch {
     return [];
   }
+}
+
+export interface PublicAttendee {
+  name: string;
+  tech: string;
+  hue: number;
+}
+
+// Derives a public attendee card from a real user (no mock data).
+export function toAttendee(u: Pick<User, "name" | "skills" | "hue">): PublicAttendee {
+  const skills = parseSkills(u.skills);
+  return {
+    name: u.name,
+    tech: skills.length ? skills.join(" · ") : "Builder",
+    hue: u.hue,
+  };
 }
 
 // Strips the password hash and shapes a DB user for API responses.

@@ -242,6 +242,29 @@ const PATHS = {
       <path d="M4 21c4-7 7-9 11-10" />
     </>
   ),
+  sparkle: (
+    <path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9Z" />
+  ),
+  monitor: (
+    <>
+      <rect x="2" y="3" width="20" height="14" rx="2" />
+      <line x1="8" y1="21" x2="16" y2="21" />
+      <line x1="12" y1="17" x2="12" y2="21" />
+    </>
+  ),
+  boat: (
+    <>
+      <path d="M3 14h18l-2.5 6a1 1 0 0 1-.9.6H6.4a1 1 0 0 1-.9-.6Z" />
+      <path d="M5 14V8a1 1 0 0 1 1-1h8l4 7" />
+      <line x1="10" y1="7" x2="10" y2="4" />
+    </>
+  ),
+  "check-circle": (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="m8.5 12 2.5 2.5L16 9" />
+    </>
+  ),
 } as const;
 
 export type IconName = keyof typeof PATHS;

@@ -1,8 +1,10 @@
 import { Router } from "express";
+import * as eventsController from "../controllers/events.controller";
 
 const router = Router();
 
-// GET  /api/events
-// GET  /api/events/:id
+// Public — no auth required
+router.get("/", eventsController.list);
+router.get("/:id", eventsController.getById);
 
 export default router;

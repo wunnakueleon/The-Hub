@@ -41,12 +41,12 @@ export interface FAQItem {
 
 export interface Attendee {
   name: string;
-  role: string;
-  tech: string;
+  tech: string;        // skills joined, derived from the user
   hue: number;
 }
 
-export interface Event {
+// Card-level shape returned by GET /api/events
+export interface EventSummary {
   id: string;
   name: string;
   island: string;
@@ -57,16 +57,20 @@ export interface Event {
   tagline: string;
   desc: string;
   capacity: number;
-  booked: number;       // computed: confirmed booking count
+  booked: number;       // computed: active (confirmed/pending) booking count
   published: boolean;
   heroTag?: string | null;
+  priceFrom: number;    // computed: min room price
+  attendees: Attendee[];
+}
+
+// Full shape returned by GET /api/events/:id
+export interface Event extends EventSummary {
   rooms: Room[];
   amenities: Amenity[];
   included: string[];
   schedule: ScheduleItem[];
   faq: FAQItem[];
-  attendees: Attendee[];
-  priceFrom: number;    // computed: min room price
 }
 
 export interface Booking {
