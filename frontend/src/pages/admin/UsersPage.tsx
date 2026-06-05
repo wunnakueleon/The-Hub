@@ -1,11 +1,16 @@
+import { AdminHeader } from "../../features/admin/components/AdminHeader";
+import { UsersTable } from "../../features/admin/components/UsersTable";
+import { useAdminUsers } from "../../features/admin/hooks/useAdminUsers";
+
 export default function UsersPage() {
+  const { users, loading, error } = useAdminUsers();
+
   return (
-    <div>
-      <h1 className="font-display text-4xl text-jade-900">Users</h1>
-      <p className="mt-2 text-ink-500">Everyone registered on The Hub.</p>
-      <p className="mt-6 max-w-xl text-sm text-ink-400">
-        The users table arrives in the admin slice (Step 12).
-      </p>
-    </div>
+    <>
+      <AdminHeader title="Users" sub={`${users.length} registered developers.`} />
+      {loading && <p className="text-ink-500">Loading users…</p>}
+      {error && <p className="text-coral-600">{error}</p>}
+      {!loading && !error && <UsersTable users={users} />}
+    </>
   );
 }

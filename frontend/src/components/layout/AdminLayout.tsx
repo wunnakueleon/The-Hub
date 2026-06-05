@@ -1,7 +1,8 @@
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Navigate, Outlet } from "react-router-dom";
 import { cn } from "../../lib/cn";
 import { ROUTES } from "../../lib/constants";
 import { Icon, type IconName } from "../icons/Icon";
+import { useAuth } from "../../features/auth/hooks/useAuth";
 
 interface NavItem {
   to: string;
@@ -19,6 +20,16 @@ const ADMIN_NAV: NavItem[] = [
 ];
 
 export function AdminLayout() {
+  const { isAuthed, role } = useAuth();
+
+  // Client-side gate (the API also enforces admin on every request).
+  if (!isAuthed) {
+    return <Navigate to={ROUTES.login} replace state={{ from: ROUTES.admin }} />;
+  }
+  if (role !== "admin") {
+    return <Navigate to={ROUTES.home} replace />;
+  }
+
   return (
     <div className="grid min-h-dvh grid-cols-1 md:grid-cols-[248px_1fr]">
       {/* Sidebar */}
