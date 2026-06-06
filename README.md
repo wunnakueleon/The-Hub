@@ -42,7 +42,7 @@ npm run dev                # → http://localhost:5173
 ```
 
 ### 4. Open the app
-Go to **http://localhost:5173** in your browser. 🎉
+Go to **http://localhost:5173** in your browser. 
 
 ---
 
