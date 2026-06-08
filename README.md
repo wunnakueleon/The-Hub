@@ -11,6 +11,14 @@ A booking platform for developer retreats — browse curated coding getaways, re
 | Validation | Zod |
 
 ---
+## About
+
+This is a working demo for a developer community workcation platform — seasonal retreats at villas across Thailand's southern islands where developers gather for a week to build side projects, connect, and recharge.
+
+The concept originated from Nils Magnus, Senior Cloud Principal, who envisioned a dedicated space where developers could step away from their day-to-day, meet like-minded builders, and ship something fun together in a beautiful setting.
+I designed and built this prototype end-to-end to bring that vision to life — from the booking flow and event system to the admin portal and the visual identity. The platform covers registration, event browsing, a multi-step room booking system, attendee profiles, and a full admin suite for managing retreats, registrations, and users.
+
+---
 
 ## Quick start (run it locally)
 
